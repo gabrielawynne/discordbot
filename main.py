@@ -19,8 +19,10 @@ class Bot(commands.Bot):
         await self.load_extension("cogs.reactions")
         await self.load_extension("cogs.weekly")
         await self.load_extension("cogs.pfp")
+        await self.load_extension("cogs.ping")
 
         asyncio.create_task(weekly_scheduler(self))
+
 
 bot = Bot(command_prefix="!", intents=intents)
 
