@@ -1,0 +1,19 @@
+{
+  "vote_channels": [
+    1256128752677814284,
+    1263929109088702535
+  ],
+  "heart_channels": [
+    1255268415862608022,
+    1260825416331956297,
+    1260840190881300561,
+    1262600824325148742,
+    1265424751753433170
+  ],
+  "weekly_source_channel": 1263929109088702535,
+  "weekly_post_channel": 1263929109088702535,
+  "weekly_message": "Congratulations {winner} for posting the most liked meal of the week",
+  "weekly_day": 1,
+  "weekly_hour": 15,
+  "weekly_minute": 50
+}
