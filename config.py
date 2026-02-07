@@ -1,7 +1,8 @@
 import json
 import os
 
-CONFIG_FILE = "config.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_FILE = os.path.join(BASE_DIR, "config.json")
 
 DEFAULT_CONFIG = {
     "vote_channels": [],
@@ -11,21 +12,36 @@ DEFAULT_CONFIG = {
     "weekly_message": "🏆 Weekly winner!",
     "weekly_day": None,
     "weekly_hour": None,
-    "weekly_minute": None
+    "weekly_minute": None,
+    "vc_log_channel": None,
+    "tc_log_channel": None
 }
 
+
+
 def load_config():
-    if not os.path.exists(CONFIG_FILE):
-        return DEFAULT_CONFIG.copy()
+    """
+    Load config.json and merge it with DEFAULT_CONFIG.
+    Guarantees all expected keys always exist.
+    """
+    cfg = DEFAULT_CONFIG.copy()
 
-    with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-        cfg = json.load(f)
-
-    for k, v in DEFAULT_CONFIG.items():
-        cfg.setdefault(k, v)
+    if os.path.exists(CONFIG_FILE):
+        try:
+            with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    cfg.update(data)
+        except json.JSONDecodeError:
+            # corrupted config.json → fall back to defaults
+            pass
 
     return cfg
 
+
 def save_config(cfg):
+    """
+    Save the current config back to disk.
+    """
     with open(CONFIG_FILE, "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=2)

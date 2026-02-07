@@ -20,11 +20,18 @@ class Bot(commands.Bot):
         await self.load_extension("cogs.weekly")
         await self.load_extension("cogs.pfp")
         await self.load_extension("cogs.ping")
+        await self.load_extension("cogs.logging")
 
         asyncio.create_task(weekly_scheduler(self))
 
 
 bot = Bot(command_prefix="!", intents=intents)
+
+from config import load_config, save_config
+
+bot.config = load_config()
+bot.save_config = lambda: save_config(bot.config)
+
 
 @bot.event
 async def on_ready():
