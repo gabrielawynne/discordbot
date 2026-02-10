@@ -1,6 +1,8 @@
 from discord.ext import commands
 from utils import send_log
 
+import discord
+
 
 class Logging(commands.Cog):
     def __init__(self, bot):
@@ -14,14 +16,14 @@ class Logging(commands.Cog):
     async def on_member_join(self, member):
         await send_log(
             self.bot,
-            f"**Member joined:** {member} ({member.id})"
+            f"Member joined: {member} ({member.id})"
         )
 
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         await send_log(
             self.bot,
-            f"**Member left:** {member} ({member.id})"
+            f"Member left: {member} ({member.id})"
         )
 
     # ----------------------------
@@ -34,7 +36,7 @@ class Logging(commands.Cog):
         if before.channel is None and after.channel is not None:
             await send_log(
                 self.bot,
-                f"**Joined voice channel:** {after.channel}",
+                f"Joined voice channel: {after.channel}",
                 voice=True,
                 member=member
             )
@@ -43,7 +45,7 @@ class Logging(commands.Cog):
         elif before.channel is not None and after.channel is None:
             await send_log(
                 self.bot,
-                f"**Left voice channel:** {before.channel}",
+                f"Left voice channel: {before.channel}",
                 voice=True,
                 member=member
             )
@@ -52,7 +54,7 @@ class Logging(commands.Cog):
         elif before.channel != after.channel:
             await send_log(
                 self.bot,
-                "**Member joined the server**",
+                f"Switched voice channels: {before.channel} -> {after.channel}",
                 member=member
             )
 
