@@ -32,6 +32,42 @@ class Logging(commands.Cog):
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
+        
+        # Both changed
+        if before.self_mute != after.self_mute and before.self_deaf != after.self_deaf:
+
+            if after.self_mute and after.self_deaf:
+                action = "muted and deafened themselves"
+            elif not after.self_mute and not after.self_deaf:
+                action = "unmuted and undeafened themselves"
+            elif after.self_mute and not after.self_deaf:
+                action = "muted and undeafened themselves"
+            elif not after.self_mute and after.self_deaf:
+                action = "unmuted and deafened themselves"
+
+            await send_log(
+                self.bot,
+                f"{member} {action}"
+            )
+
+        # Only mute changed
+        elif before.self_mute != after.self_mute:
+            action = "muted themselves" if after.self_mute else "unmuted themselves"
+
+            await send_log(
+                self.bot,
+                f"{member} {action}"
+            )
+
+        # Only deaf changed
+        elif before.self_deaf != after.self_deaf:
+            action = "deafened themselves" if after.self_deaf else "undeafened themselves"
+
+            await send_log(
+                self.bot,
+                f"{member} {action}"
+            )
+        
         # Joined a voice channel
         if before.channel is None and after.channel is not None:
             await send_log(
