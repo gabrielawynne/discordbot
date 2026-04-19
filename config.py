@@ -14,7 +14,24 @@ DEFAULT_CONFIG = {
     "weekly_hour": None,
     "weekly_minute": None,
     "vc_log_channel": None,
-    "tc_log_channel": None
+    "tc_log_channel": None,
+    "food_channel": None,
+    "usage": {"prompt_tokens": 0, "completion_tokens": 0},
+    "log_colors": {
+        "member_join":    0x57f287,
+        "member_leave":   0xed4245,
+        "voice_join":     0x5865f2,
+        "voice_leave":    0xfaa61a,
+        "voice_move":     0xa57eef,
+        "message_delete":   0x992d22,
+        "message_edit":     0xfee75c,
+        "bulk_delete":      0xff6b6b,
+        "role_add":         0x43b581,
+        "role_remove":      0xf04747,
+        "nickname_change":  0x979c9f,
+        "reaction_add":     0xf9a825,
+        "reaction_remove":  0x78909c
+    }
 }
 
 

@@ -1,5 +1,4 @@
 from discord.ext import commands
-from config import load_config
 from utils import is_media_message
 
 class Reactions(commands.Cog):
@@ -11,7 +10,7 @@ class Reactions(commands.Cog):
         if message.author.bot:
             return
 
-        cfg = load_config()
+        cfg = self.bot.config
 
         if message.channel.id in cfg["vote_channels"] and is_media_message(message):
             await message.add_reaction("👍")

@@ -17,5 +17,24 @@
   "weekly_hour": 15,
   "weekly_minute": 50,
   "vc_log_channel": 1266247255606824990,
-  "tc_log_channel": 1266247255606824990
+  "tc_log_channel": 1266247255606824990,
+  "usage": {
+    "prompt_tokens": 1004,
+    "completion_tokens": 330
+  },
+  "log_colors": {
+    "member_join": 5763719,
+    "member_leave": 15548997,
+    "voice_join": 5793266,
+    "voice_leave": 16426522,
+    "voice_move": 10845935,
+    "message_delete": 10038562,
+    "message_edit": 16705372,
+    "bulk_delete": 16739179,
+    "role_add": 4437377,
+    "role_remove": 15746887,
+    "nickname_change": 9936031,
+    "reaction_add": 16361509,
+    "reaction_remove": 7901340
+  }
 }

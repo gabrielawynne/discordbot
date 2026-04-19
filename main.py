@@ -21,11 +21,13 @@ class Bot(commands.Bot):
         await self.load_extension("cogs.pfp")
         await self.load_extension("cogs.ping")
         await self.load_extension("cogs.logging")
+        await self.load_extension("cogs.food_review")
+        await self.load_extension("cogs.help")
 
         asyncio.create_task(weekly_scheduler(self))
 
 
-bot = Bot(command_prefix="!", intents=intents)
+bot = Bot(command_prefix="!", intents=intents, help_command=None)
 
 from config import load_config, save_config
 
