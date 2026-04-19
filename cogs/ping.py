@@ -8,5 +8,9 @@ class Ping(commands.Cog):
     async def ping(self, ctx):
         await ctx.send("pong")
 
+    @commands.command()
+    async def smiley(self, ctx):
+        await ctx.send(":)")
+
 async def setup(bot):
     await bot.add_cog(Ping(bot))
