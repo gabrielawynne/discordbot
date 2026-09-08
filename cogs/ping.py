@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from version import VERSION, CHANGELOG
+from version import VERSION
 
 class Ping(commands.Cog):
     def __init__(self, bot):
@@ -16,13 +16,7 @@ class Ping(commands.Cog):
 
     @commands.command()
     async def version(self, ctx):
-        embed = discord.Embed(
-            title=f"Bot Version v{VERSION}",
-            color=0x5865f2
-        )
-        log = "\n".join(f"`v{ver}` — {desc}" for ver, desc in CHANGELOG)
-        embed.add_field(name="Changelog", value=log, inline=False)
-        await ctx.send(embed=embed)
+        await ctx.send(f"version `v{VERSION}`")
 
 async def setup(bot):
     await bot.add_cog(Ping(bot))
