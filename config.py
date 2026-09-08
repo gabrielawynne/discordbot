@@ -16,6 +16,10 @@ DEFAULT_CONFIG = {
     "vc_log_channel": None,
     "tc_log_channel": None,
     "food_channel": None,
+    "weather_channel": None,
+    "weather_city": None,
+    "weather_lat": None,
+    "weather_lon": None,
     "usage": {"prompt_tokens": 0, "completion_tokens": 0},
     "log_colors": {
         "member_join":    0x57f287,

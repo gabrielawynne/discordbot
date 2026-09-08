@@ -156,5 +156,60 @@ class Admin(commands.Cog):
         await ctx.send(embed=embed)
 
 
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setweatherchannel(self, ctx, channel_id: int):
+        """Set the channel where the daily 6am weather forecast is posted."""
+        channel = ctx.guild.get_channel(channel_id)
+        if channel is None:
+            await ctx.send("Invalid channel ID.")
+            return
+        self.bot.config["weather_channel"] = channel.id
+        self.bot.save_config()
+        await ctx.send(f"☀️ Daily weather will be posted in {channel.mention} at 6 am Central.")
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def setweathercity(self, ctx, *, city: str):
+        """Look up a city and save its location for weather forecasts."""
+        import aiohttp
+        url = (
+            f"https://geocoding-api.open-meteo.com/v1/search"
+            f"?name={aiohttp.helpers.quote(city)}&count=1&language=en&format=json"
+        )
+        async with ctx.typing():
+            try:
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as resp:
+                        data = await resp.json()
+            except Exception:
+                await ctx.send("⚠️ Couldn't reach the geocoding service. Try again in a moment.")
+                return
+
+        results = data.get("results")
+        if not results:
+            await ctx.send(f"❌ Couldn't find a city called **{city}**. Try a different spelling.")
+            return
+
+        result = results[0]
+        name    = result.get("name", city)
+        country = result.get("country_code", "")
+        state   = result.get("admin1", "")
+        display = f"{name}, {state}, {country}" if state else f"{name}, {country}"
+        lat     = result["latitude"]
+        lon     = result["longitude"]
+
+        self.bot.config["weather_city"] = display
+        self.bot.config["weather_lat"]  = lat
+        self.bot.config["weather_lon"]  = lon
+        self.bot.save_config()
+
+        await ctx.send(
+            f"📍 Weather location set to **{display}** "
+            f"(lat `{lat}`, lon `{lon}`).\n"
+            f"Use `!weather` to test it, or `!setweatherchannel` to set up the daily post."
+        )
+
+
 async def setup(bot):
     await bot.add_cog(Admin(bot))

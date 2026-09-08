@@ -23,6 +23,7 @@ class Bot(commands.Bot):
         await self.load_extension("cogs.logging")
         await self.load_extension("cogs.food_review")
         await self.load_extension("cogs.help")
+        await self.load_extension("cogs.weather")
 
         asyncio.create_task(weekly_scheduler(self))
 
